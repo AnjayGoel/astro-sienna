@@ -6,6 +6,7 @@ import expressiveCode from "astro-expressive-code";
 import icon from "astro-icon";
 import robotsTxt from "astro-robots-txt";
 import webmanifest from "astro-webmanifest";
+import { unified } from "@astrojs/markdown-remark";
 import { defineConfig } from "astro/config";
 import { expressiveCodeOptions } from "./src/site.config";
 import { siteConfig } from "./src/site.config";
@@ -33,6 +34,8 @@ export default defineConfig({
 		domains: ["webmention.io"],
 	},
 	output: "static",
+	// Astro 7's default flipped to 'jsx'; keep v6 HTML-whitespace behavior.
+	compressHTML: true,
 	build: {
 		inlineStylesheets: "always",
 	},
@@ -86,27 +89,33 @@ export default defineConfig({
 		}),
 		(await import("@playform/compress")).default(),
 	],
+	// Astro 7 defaults to the Sätteri Markdown processor; opt back into the
+	// unified (remark/rehype) pipeline. Plugins must live inside unified();
+	// the deprecated top-level markdown.remarkPlugins/rehypePlugins keys are
+	// gone (keeping both would double-apply the plugins).
 	markdown: {
-		rehypePlugins: [
-			rehypeUnwrapImages,
-			[rehypeBasePath, { base: BASE_PATH }],
-			// rehype-katex must run before rehype-external-links so the latter
-			// doesn't rewrite anchors inside katex's emitted DOM.
-			rehypeKatex,
-			[
-				rehypeExternalLinks,
-				{
-					rel: ["nofollow, noreferrer"],
-					target: "_blank",
-				},
+		processor: unified({
+			rehypePlugins: [
+				rehypeUnwrapImages,
+				[rehypeBasePath, { base: BASE_PATH }],
+				// rehype-katex must run before rehype-external-links so the latter
+				// doesn't rewrite anchors inside katex's emitted DOM.
+				rehypeKatex,
+				[
+					rehypeExternalLinks,
+					{
+						rel: ["nofollow, noreferrer"],
+						target: "_blank",
+					},
+				],
 			],
-		],
-		remarkPlugins: [remarkReadingTime, remarkDirective, remarkAdmonitions, remarkMath],
-		remarkRehype: {
-			footnoteLabelProperties: {
-				className: [""],
+			remarkPlugins: [remarkReadingTime, remarkDirective, remarkAdmonitions, remarkMath],
+			remarkRehype: {
+				footnoteLabelProperties: {
+					className: [""],
+				},
 			},
-		},
+		}),
 	},
 	// https://docs.astro.build/en/guides/prefetch/
 	prefetch: true,

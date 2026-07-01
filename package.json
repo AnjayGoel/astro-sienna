@@ -33,7 +33,6 @@
 		"astro-robots-txt": "^1.0.0",
 		"astro-seo-schema": "^5.2.0",
 		"astro-webmanifest": "^1.0.0",
-		"cssnano": "^7.1.9",
 		"hastscript": "^9.0.1",
 		"katex": "^0.16.45",
 		"mdast-util-directive": "^3.1.0",
@@ -52,24 +51,26 @@
 	},
 	"devDependencies": {
 		"@astrojs/check": "^0.9.9",
-		"@biomejs/biome": "^2.4.15",
+		"@biomejs/biome": "^2.5.2",
 		"@iconify-json/mdi": "^1.2.3",
 		"@resvg/resvg-js": "^2.6.2",
 		"@types/hast": "^3.0.4",
 		"@types/mdast": "^4.0.4",
-		"autoprefixer": "^10.5.0",
+		"autoprefixer": "^10.5.2",
+		"cssnano": "^8.0.2",
 		"pagefind": "^1.5.2",
-		"prettier": "^3.8.3",
+		"prettier": "^3.9.4",
 		"prettier-plugin-astro": "0.14.1",
-		"prettier-plugin-tailwindcss": "^0.6.14",
+		"prettier-plugin-tailwindcss": "^0.8.0",
 		"reading-time": "^1.5.0",
 		"rehype-unwrap-images": "^1.0.0",
 		"tailwindcss": "^3.4.19",
-		"typescript": "^5.9.3"
+		"typescript": "^6.0.3"
 	},
 	"pnpm": {
 		"overrides": {
-			"sharp": "^0.34.5"
+			"sharp": "^0.34.5",
+			"postcss": "^8.5.15"
 		}
 	}
 }

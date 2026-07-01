@@ -1,7 +1,6 @@
 {
   "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
-    "baseUrl": ".",
     "lib": [
       "es2022",
       "dom",
@@ -9,25 +8,25 @@
     ],
     "paths": {
       "@/assets/*": [
-        "src/assets/*"
+        "./src/assets/*"
       ],
       "@/components/*": [
-        "src/components/*"
+        "./src/components/*"
       ],
       "@/data/*": [
-        "src/data/*"
+        "./src/data/*"
       ],
       "@/layouts/*": [
-        "src/layouts/*"
+        "./src/layouts/*"
       ],
       "@/utils/*": [
-        "src/utils/*"
+        "./src/utils/*"
       ],
       "@/types": [
-        "src/types.ts"
+        "./src/types.ts"
       ],
       "@/site-config": [
-        "src/site.config.ts"
+        "./src/site.config.ts"
       ]
     }
   },

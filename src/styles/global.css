@@ -51,6 +51,11 @@
 		--faint: #b8ad9b;
 		--accent-soft: rgba(138, 68, 35, 0.1);
 		--accent-soft-strong: rgba(138, 68, 35, 0.18);
+
+		/* Admonition accents (hsl-channel; warm + desaturated to stay in-palette) */
+		--aside-moss: 74deg 30% 30%; /* tip */
+		--aside-ochre: 34deg 68% 32%; /* caution */
+		--aside-rust: 10deg 58% 40%; /* warning */
 	}
 
 	:root[data-theme="dark"] {
@@ -68,6 +73,10 @@
 		--faint: #4f4a42;
 		--accent-soft: rgba(200, 151, 97, 0.12);
 		--accent-soft-strong: rgba(200, 151, 97, 0.22);
+
+		--aside-moss: 74deg 26% 60%; /* tip */
+		--aside-ochre: 36deg 52% 60%; /* caution */
+		--aside-rust: 12deg 60% 66%; /* warning */
 	}
 }
 
@@ -341,6 +350,51 @@ ul.work-list a:focus-visible {
 	ul.work-list p {
 		font-size: 15px;
 	}
+}
+
+/* Admonitions — `:::note` / `:::tip` / `:::important` / `:::caution` / `:::warning`
+   emitted by remark-admonitions as <aside class="aside aside-{type}">. Matches the
+   template's rule-and-label vernacular (see .section-label): a colored left rule and
+   a mono eyebrow, no filled box. `--aside-accent` is swapped per type below. */
+.aside {
+	--aside-accent: var(--theme-text-muted);
+	margin: 28px 0;
+	padding: 1px 0 1px 20px;
+	border-left: 2.5px solid hsl(var(--aside-accent));
+}
+.aside-title {
+	font-family: var(--font-sans);
+	font-size: 11.5px;
+	font-weight: 600;
+	letter-spacing: 0.14em;
+	text-transform: uppercase;
+	color: hsl(var(--aside-accent));
+	margin: 0 0 8px;
+}
+.aside-content {
+	color: hsl(var(--theme-text) / 0.9);
+}
+.aside-content > :first-child {
+	margin-top: 0;
+}
+.aside-content > :last-child {
+	margin-bottom: 0;
+}
+
+.aside-note {
+	--aside-accent: var(--theme-text-muted);
+}
+.aside-tip {
+	--aside-accent: var(--aside-moss);
+}
+.aside-important {
+	--aside-accent: var(--theme-accent);
+}
+.aside-caution {
+	--aside-accent: var(--aside-ochre);
+}
+.aside-warning {
+	--aside-accent: var(--aside-rust);
 }
 
 /* Stagger entry: items set --i inline; nth-child rules cover the rest. */

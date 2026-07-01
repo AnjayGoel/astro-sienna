@@ -1,21 +1,11 @@
 import type { Config } from "tailwindcss";
-import { fontFamily } from "tailwindcss/defaultTheme";
+import defaultTheme from "tailwindcss/defaultTheme";
 
 export default {
 	content: [
 		"./src/**/*.{astro,html,js,jsx,md,svelte,ts,tsx,vue}",
 		"!./src/pages/og-image/[slug].png.ts",
 	],
-	corePlugins: {
-		aspectRatio: false,
-		borderOpacity: false,
-		fontVariantNumeric: false,
-		ringOffsetColor: false,
-		ringOffsetWidth: false,
-		scrollSnapType: false,
-		textOpacity: false,
-		touchAction: false,
-	},
 	darkMode: ["class", '[data-theme="dark"]'],
 	plugins: [],
 	theme: {
@@ -30,8 +20,8 @@ export default {
 				textMuted: "hsl(var(--theme-text-muted) / <alpha-value>)",
 			},
 			fontFamily: {
-				sans: ["Inter", ...fontFamily.sans],
-				serif: [...fontFamily.serif],
+				sans: ["Inter", ...defaultTheme.fontFamily.sans],
+				serif: [...defaultTheme.fontFamily.serif],
 			},
 			transitionProperty: {
 				height: "height",

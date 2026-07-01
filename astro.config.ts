@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
-import tailwind from "@astrojs/tailwind";
+import tailwindcss from "@tailwindcss/vite";
 import expressiveCode from "astro-expressive-code";
 import icon from "astro-icon";
 import robotsTxt from "astro-robots-txt";
@@ -44,9 +44,6 @@ export default defineConfig({
 		}),
 		expressiveCode(expressiveCodeOptions),
 		icon(),
-		tailwind({
-			applyBaseStyles: false,
-		}),
 		sitemap({
 			changefreq: "weekly",
 			priority: 0.7,
@@ -117,7 +114,7 @@ export default defineConfig({
 		optimizeDeps: {
 			exclude: ["@resvg/resvg-js"],
 		},
-		plugins: [rawFonts([".ttf", ".woff"])],
+		plugins: [tailwindcss(), rawFonts([".ttf", ".woff"])],
 	},
 });
 

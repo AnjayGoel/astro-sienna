@@ -42,10 +42,10 @@
 		"rehype-katex": "^7.0.1",
 		"remark-directive": "^4.0.0",
 		"remark-math": "^6.0.0",
-		"satori": "0.15.2",
+		"satori": "0.26.0",
 		"satori-html": "^0.3.2",
 		"schema-dts": "^1.1.5",
-		"sharp": "^0.34.5",
+		"sharp": "^0.35.3",
 		"unified": "^11.0.5",
 		"unist-util-visit": "^5.1.0"
 	},
@@ -69,7 +69,7 @@
 	},
 	"pnpm": {
 		"overrides": {
-			"sharp": "^0.34.5",
+			"sharp": "^0.35.3",
 			"postcss": "^8.5.15"
 		}
 	}

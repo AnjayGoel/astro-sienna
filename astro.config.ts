@@ -34,7 +34,6 @@ export default defineConfig({
 		domains: ["webmention.io"],
 	},
 	output: "static",
-	// Astro 7's default flipped to 'jsx'; keep v6 HTML-whitespace behavior.
 	compressHTML: true,
 	build: {
 		inlineStylesheets: "always",
@@ -89,10 +88,8 @@ export default defineConfig({
 		}),
 		(await import("@playform/compress")).default(),
 	],
-	// Astro 7 defaults to the Sätteri Markdown processor; opt back into the
-	// unified (remark/rehype) pipeline. Plugins must live inside unified();
-	// the deprecated top-level markdown.remarkPlugins/rehypePlugins keys are
-	// gone (keeping both would double-apply the plugins).
+	// Astro 7 defaults to Sätteri; opt back into remark/rehype. Plugins go
+	// inside unified() only — top-level arrays would double-run them.
 	markdown: {
 		processor: unified({
 			rehypePlugins: [

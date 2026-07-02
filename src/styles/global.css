@@ -52,10 +52,9 @@
 		--accent-soft: rgba(138, 68, 35, 0.1);
 		--accent-soft-strong: rgba(138, 68, 35, 0.18);
 
-		/* Admonition accents (hsl-channel; warm + desaturated to stay in-palette) */
-		--aside-moss: 74deg 30% 30%; /* tip */
-		--aside-ochre: 34deg 68% 32%; /* caution */
-		--aside-rust: 10deg 58% 40%; /* warning */
+		--aside-moss: 74deg 30% 30%;
+		--aside-ochre: 34deg 68% 32%;
+		--aside-rust: 10deg 58% 40%;
 	}
 
 	:root[data-theme="dark"] {
@@ -74,9 +73,9 @@
 		--accent-soft: rgba(200, 151, 97, 0.12);
 		--accent-soft-strong: rgba(200, 151, 97, 0.22);
 
-		--aside-moss: 74deg 26% 60%; /* tip */
-		--aside-ochre: 36deg 52% 60%; /* caution */
-		--aside-rust: 12deg 60% 66%; /* warning */
+		--aside-moss: 74deg 26% 60%;
+		--aside-ochre: 36deg 52% 60%;
+		--aside-rust: 12deg 60% 66%;
 	}
 }
 
@@ -352,10 +351,7 @@ ul.work-list a:focus-visible {
 	}
 }
 
-/* Admonitions — `:::note` / `:::tip` / `:::important` / `:::caution` / `:::warning`
-   emitted by remark-admonitions as <aside class="aside aside-{type}">. Matches the
-   template's rule-and-label vernacular (see .section-label): a colored left rule and
-   a mono eyebrow, no filled box. `--aside-accent` is swapped per type below. */
+/* Admonitions from remark-admonitions (<aside class="aside aside-{type}">). */
 .aside {
 	--aside-accent: var(--theme-text-muted);
 	margin: 28px 0;

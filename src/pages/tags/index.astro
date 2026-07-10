@@ -55,7 +55,15 @@ const meta = {
 		letter-spacing: 0.01em;
 		transition: color 0.2s ease;
 	}
+	.tag-run .name::before {
+		content: "#";
+		color: var(--faint);
+		transition: color 0.2s ease;
+	}
 	.tag-run a:hover {
+		color: hsl(var(--theme-accent));
+	}
+	.tag-run a:hover .name::before {
 		color: hsl(var(--theme-accent));
 	}
 	.tag-run a:focus-visible {

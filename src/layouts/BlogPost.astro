@@ -274,7 +274,13 @@ const giscusThemes = import.meta.env.PROD
 		text-decoration: none;
 		transition: color 0.2s ease;
 	}
-	.post-tags .tag-link:hover {
+	.post-tags .tag-link::before {
+		content: "#";
+		color: var(--faint);
+		transition: color 0.2s ease;
+	}
+	.post-tags .tag-link:hover,
+	.post-tags .tag-link:hover::before {
 		color: hsl(var(--theme-accent));
 	}
 	.post-tags .tag-link:focus-visible {

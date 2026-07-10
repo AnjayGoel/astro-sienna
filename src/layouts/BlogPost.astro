@@ -672,6 +672,7 @@ const giscusThemes = import.meta.env.PROD
 	.post-article h2,
 	.post-article h3 {
 		position: relative;
+		scroll-margin-top: 2rem;
 	}
 	.post-article .heading-anchor {
 		position: absolute;
@@ -893,6 +894,7 @@ const giscusThemes = import.meta.env.PROD
 			btn.textContent = "#";
 			btn.addEventListener("click", async () => {
 				const url = `${location.origin}${location.pathname}#${id}`;
+				history.replaceState(null, "", `#${id}`);
 				try {
 					await navigator.clipboard.writeText(url);
 					btn.textContent = "✓";

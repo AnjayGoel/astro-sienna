@@ -9,7 +9,7 @@ analytics.
 
 ## Features
 
-- Astro 6 with content collections (posts and pages, both validated by Zod)
+- Astro 7 with content collections (posts and pages, both validated by Zod)
 - MDX support — embed Astro/JSX components, imports, and JS expressions inside posts
 - Light and dark mode with a CSS-only theme toggle
 - Self-hosted serif body font ([Newsreader](https://github.com/productiontype/Newsreader)) and mono (JetBrains Mono)
@@ -17,6 +17,7 @@ analytics.
   highlighting
 - Math via KaTeX (`$inline$` and `$$display$$`)
 - Custom containers (`:::note`, `:::tip`, `:::caution`)
+- Tag pages — post tags link to per-tag archives, with a browsable `/tags/` index
 - Per-post OG images generated at build time (Satori + resvg)
 - RSS feed, sitemap, robots.txt, web manifest
 - Optional [Giscus](https://giscus.app) comments with custom matched themes
@@ -105,10 +106,10 @@ src/
     post/*.md           # blog posts
     page/about.md       # about page
   data/showcase.ts      # showcase entries (or empty for none)
-  components/           # blog/, layout/, ui/
+  components/           # blog/, layout/
   layouts/              # Base.astro, BlogPost.astro
-  pages/                # routes (incl. /og-image, /posts pagination, rss)
-  plugins/              # remark-admonitions, remark-reading-time
+  pages/                # routes (incl. /og-image, /posts pagination, /tags, rss)
+  plugins/              # remark-admonitions, remark-reading-time, rehype-base-path
   styles/global.css     # design tokens and shared utilities
 public/                 # static assets served at site root
 ```

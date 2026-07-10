@@ -99,7 +99,7 @@ const siteUrl = (path: string) => absoluteUrl(path, Astro.site);
 									{featured.data.tags.map((t, i) => (
 										<Fragment>
 											{i > 0 && <span class="dot">·</span>}
-											<span>{t}</span>
+											<span class="tag">{t}</span>
 										</Fragment>
 									))}
 								</div>
@@ -214,6 +214,10 @@ const siteUrl = (path: string) => absoluteUrl(path, Astro.site);
 		color: hsl(var(--theme-text) / 0.72);
 		font-variant-numeric: tabular-nums;
 		font-feature-settings: "tnum";
+	}
+	.post.featured .post-meta .tag::before {
+		content: "#";
+		color: var(--faint);
 	}
 	.post.featured .post-meta .dot {
 		color: var(--faint);

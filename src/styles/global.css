@@ -52,9 +52,12 @@
 		--accent-soft: rgba(138, 68, 35, 0.1);
 		--accent-soft-strong: rgba(138, 68, 35, 0.18);
 
-		--aside-moss: 74deg 30% 30%;
-		--aside-ochre: 34deg 68% 32%;
-		--aside-rust: 10deg 58% 40%;
+		/* Callout accents — hues spread for distinguishability, kept muted for the theme */
+		--aside-note: 212deg 20% 46%;       /* dusty blue */
+		--aside-tip: 96deg 32% 33%;         /* green */
+		--aside-important: 284deg 26% 48%;  /* plum */
+		--aside-caution: 40deg 78% 40%;     /* amber */
+		--aside-warning: 7deg 66% 45%;      /* red */
 	}
 
 	:root[data-theme="dark"] {
@@ -73,9 +76,11 @@
 		--accent-soft: rgba(200, 151, 97, 0.12);
 		--accent-soft-strong: rgba(200, 151, 97, 0.22);
 
-		--aside-moss: 74deg 26% 60%;
-		--aside-ochre: 36deg 52% 60%;
-		--aside-rust: 12deg 60% 66%;
+		--aside-note: 212deg 28% 68%;       /* dusty blue */
+		--aside-tip: 96deg 30% 62%;         /* green */
+		--aside-important: 284deg 34% 74%;  /* plum */
+		--aside-caution: 42deg 72% 62%;     /* amber */
+		--aside-warning: 9deg 68% 66%;      /* red */
 	}
 }
 
@@ -355,8 +360,13 @@ ul.work-list a:focus-visible {
 .aside {
 	--aside-accent: var(--theme-text-muted);
 	margin: 28px 0;
-	padding: 1px 0 1px 20px;
-	border-left: 2.5px solid hsl(var(--aside-accent));
+	max-width: var(--reading-width);
+	padding: 14px 18px 16px;
+	background: var(--paper);
+	border: 1px solid var(--hairline);
+	border-left: 3px solid hsl(var(--aside-accent));
+	border-radius: 4px;
+	transition: background-color 0.35s ease, border-color 0.35s ease;
 }
 .aside-title {
 	font-family: var(--font-sans);
@@ -378,19 +388,25 @@ ul.work-list a:focus-visible {
 }
 
 .aside-note {
-	--aside-accent: var(--theme-text-muted);
+	--aside-accent: var(--aside-note);
 }
 .aside-tip {
-	--aside-accent: var(--aside-moss);
+	--aside-accent: var(--aside-tip);
 }
 .aside-important {
-	--aside-accent: var(--theme-accent);
+	--aside-accent: var(--aside-important);
 }
 .aside-caution {
-	--aside-accent: var(--aside-ochre);
+	--aside-accent: var(--aside-caution);
 }
 .aside-warning {
-	--aside-accent: var(--aside-rust);
+	--aside-accent: var(--aside-warning);
+}
+@media (max-width: 420px) {
+	.aside {
+		margin: 24px 0;
+		padding: 12px 14px 14px;
+	}
 }
 
 /* Stagger entry: items set --i inline; nth-child rules cover the rest. */

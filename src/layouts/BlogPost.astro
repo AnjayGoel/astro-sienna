@@ -638,63 +638,6 @@ const giscusThemes = import.meta.env.PROD
 		all: unset;
 	}
 
-  /* Styling for aside classes */
-  .post-article .aside {
-        margin: 30px 0;
-        max-width: var(--reading-width);
-        padding: 14px 18px 16px;
-        border: 1px solid var(--hairline);
-        border-left: 3px solid var(--aside-accent, hsl(var(--theme-accent)));
-        border-radius: 4px;
-        background: var(--paper);
-        color: hsl(var(--theme-text));
-        transition: background-color 0.35s ease, border-color 0.35s ease;
-  }
-  .post-article .aside-title {
-        margin: 0 0 8px;
-        font-family: var(--font-sans);
-        font-size: 12px;
-        font-weight: 600;
-        line-height: 1.35;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        color: var(--aside-accent, hsl(var(--theme-accent)));
-  }
-  .post-article .aside-content > :first-child {
-        margin-top: 0;
-  }
-  .post-article .aside-content > :last-child {
-        margin-bottom: 0;
-  }
-  .post-article .aside-content p,
-  .post-article .aside-content li {
-        font-size: 16.5px;
-        line-height: 1.65;
-  }
-  .post-article .aside-tip {
-        --aside-accent: #5f7f4f;
-  }
-  .post-article .aside-note {
-        --aside-accent: hsl(var(--theme-accent));
-  }
-  .post-article .aside-important {
-        --aside-accent: #7a5f9a;
-  }
-  .post-article .aside-caution,
-  .post-article .aside-warning {
-        --aside-accent: #9a5a32;
-  }
-  :root[data-theme="dark"] .post-article .aside-tip {
-        --aside-accent: #9ab47d;
-  }
-  :root[data-theme="dark"] .post-article .aside-important {
-        --aside-accent: #b99bd0;
-  }
-  :root[data-theme="dark"] .post-article .aside-caution,
-  :root[data-theme="dark"] .post-article .aside-warning {
-        --aside-accent: #d39a6f;
-  }
-
 	/* Predictable sizing prevents CLS */
 	.post-article figure {
 		margin: 36px 0;
@@ -841,9 +784,6 @@ const giscusThemes = import.meta.env.PROD
 		.post-article ul li { padding-left: 18px; }
 		.post-article blockquote { padding-left: 16px; font-size: 16.5px; }
 		.post-article figcaption { font-size: 13.5px; }
-    .post-article .aside { margin: 24px 0; padding: 12px 14px 14px; }
-    .post-article .aside-content p,
-    .post-article .aside-content li { font-size: 15.5px; line-height: 1.65; }
 	}
 
 	.post-article a:focus-visible {

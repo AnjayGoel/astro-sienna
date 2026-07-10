@@ -1,0 +1,81 @@
+---
+import { getAllPosts, getUniqueTagsWithCount, sortMDByDate } from "@/data/post";
+import PageLayout from "@/layouts/Base.astro";
+import { withBase } from "@/utils/path";
+
+const posts = sortMDByDate(await getAllPosts());
+const tags = getUniqueTagsWithCount(posts);
+
+const meta = {
+	description: "Browse every topic written about on this site.",
+	title: "Tags",
+};
+---
+
+<PageLayout meta={meta}>
+	<section class="tags-index" aria-labelledby="tags-label">
+		<div class="section-label" id="tags-label">Tags · {tags.length}</div>
+		<ul class="tag-run">
+			{
+				tags.map(([tag, count]) => (
+					<li>
+						<a data-astro-prefetch href={withBase(`/tags/${encodeURIComponent(tag)}/`)}>
+							<span class="name">{tag}</span>
+							<span class="count">{count}</span>
+						</a>
+					</li>
+				))
+			}
+		</ul>
+	</section>
+</PageLayout>
+
+<style>
+	.tags-index {
+		margin-bottom: 96px;
+	}
+
+	.tag-run {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 12px 24px;
+		font-family: var(--font-mono);
+		max-width: 60ch;
+	}
+	.tag-run a {
+		display: inline-flex;
+		align-items: baseline;
+		gap: 5px;
+		text-decoration: none;
+		color: hsl(var(--theme-text) / 0.78);
+		font-size: 14.5px;
+		letter-spacing: 0.01em;
+		transition: color 0.2s ease;
+	}
+	.tag-run a:hover {
+		color: hsl(var(--theme-accent));
+	}
+	.tag-run a:focus-visible {
+		outline: 2px solid hsl(var(--theme-accent));
+		outline-offset: 3px;
+		border-radius: 3px;
+	}
+	.tag-run .count {
+		font-size: 11px;
+		color: hsl(var(--theme-text) / 0.4);
+		font-variant-numeric: tabular-nums;
+		font-feature-settings: "tnum";
+	}
+	.tag-run a:hover .count {
+		color: hsl(var(--theme-accent) / 0.7);
+	}
+
+	@media (max-width: 420px) {
+		.tags-index {
+			margin-bottom: 64px;
+		}
+	}
+</style>

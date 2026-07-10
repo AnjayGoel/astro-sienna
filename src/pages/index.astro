@@ -1,4 +1,5 @@
 ---
+import PostList from "@/components/blog/PostList.astro";
 import { getAllPosts, getPostSortDate, sortMDByDate } from "@/data/post";
 import { showcase } from "@/data/showcase";
 import PageLayout from "@/layouts/Base.astro";
@@ -108,27 +109,7 @@ const siteUrl = (path: string) => absoluteUrl(path, Astro.site);
 				)
 			}
 
-			{
-				rest.map((p, idx) => (
-					<a
-						class="post"
-						data-astro-prefetch
-						href={withBase(`/posts/${p.id}/`)}
-						style={`--i: ${idx + 1}`}
-					>
-						<div class="post-rail">
-							<time class="post-date" datetime={getPostSortDate(p).toISOString()}>
-								{formatRailDate(getPostSortDate(p))}
-							</time>
-							<span class="post-dot" aria-hidden="true" />
-						</div>
-						<div class="post-body">
-							<h3 class="post-title">{p.data.title}</h3>
-							<p class="post-preview">{p.data.description}</p>
-						</div>
-					</a>
-				))
-			}
+			<PostList posts={rest} startIndex={1} headingLevel="h3" />
 
 			<div class="archive-link" style={`--i: ${rest.length + 1}`}>
 				<a data-astro-prefetch href={withBase("/posts/")}

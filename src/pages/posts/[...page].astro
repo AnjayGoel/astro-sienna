@@ -1,9 +1,8 @@
 ---
 import type { CollectionEntry } from "astro:content";
-import { getAllPosts, getPostSortDate, sortMDByDate } from "@/data/post";
+import PostList from "@/components/blog/PostList.astro";
+import { getAllPosts, sortMDByDate } from "@/data/post";
 import PageLayout from "@/layouts/Base.astro";
-import { formatRailDate } from "@/utils/date";
-import { withBase } from "@/utils/path";
 import type { GetStaticPaths, Page } from "astro";
 
 export const getStaticPaths = (async ({ paginate }) => {
@@ -46,27 +45,7 @@ const totalCount = page.total;
 	<section class="writing" aria-labelledby="writing-label">
 		<div class="section-label" id="writing-label">Writing · {totalCount} posts</div>
 		<div class="timeline">
-			{
-				page.data.map((p, idx) => (
-					<a
-						class="post"
-						data-astro-prefetch
-						href={withBase(`/posts/${p.id}/`)}
-						style={`--i: ${idx}`}
-					>
-						<div class="post-rail">
-							<time class="post-date" datetime={getPostSortDate(p).toISOString()}>
-								{formatRailDate(getPostSortDate(p))}
-							</time>
-							<span class="post-dot" aria-hidden="true" />
-						</div>
-						<div class="post-body">
-							<h2 class="post-title">{p.data.title}</h2>
-							<p class="post-preview">{p.data.description}</p>
-						</div>
-					</a>
-				))
-			}
+			<PostList posts={page.data} />
 		</div>
 		{
 			(paginationProps.prevUrl || paginationProps.nextUrl) && (

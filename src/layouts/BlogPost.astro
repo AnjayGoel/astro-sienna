@@ -92,7 +92,7 @@ const giscusThemes = import.meta.env.PROD
 					<div class="post-tags">
 						{tags.map((tag, i) => (
 							<>
-								<span data-pagefind-filter="tag">{tag}</span>{i < tags.length - 1 && <span class="sep">·</span>}
+								<a class="tag-link" data-pagefind-filter="tag" href={withBase(`/tags/${encodeURIComponent(tag)}/`)}>{tag}</a>{i < tags.length - 1 && <span class="sep">·</span>}
 							</>
 						))}
 					</div>
@@ -268,6 +268,19 @@ const giscusThemes = import.meta.env.PROD
 		letter-spacing: 0.02em;
 		margin-bottom: 32px;
 		word-break: break-word;
+	}
+	.post-tags .tag-link {
+		color: inherit;
+		text-decoration: none;
+		transition: color 0.2s ease;
+	}
+	.post-tags .tag-link:hover {
+		color: hsl(var(--theme-accent));
+	}
+	.post-tags .tag-link:focus-visible {
+		outline: 2px solid hsl(var(--theme-accent));
+		outline-offset: 2px;
+		border-radius: 3px;
 	}
 	.post-tags .sep {
 		color: var(--faint);

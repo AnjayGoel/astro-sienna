@@ -23,3 +23,32 @@ export function sortMDByDate(posts: CollectionEntry<"post">[]): CollectionEntry<
 		return bDate - aDate;
 	});
 }
+
+/** Every tag across the given posts, including duplicates. */
+export function getAllTags(posts: CollectionEntry<"post">[]): string[] {
+	return posts.flatMap((post) => post.data.tags);
+}
+
+/** Unique tags across the given posts, sorted alphabetically. */
+export function getUniqueTags(posts: CollectionEntry<"post">[]): string[] {
+	return [...new Set(getAllTags(posts))].sort((a, b) => a.localeCompare(b));
+}
+
+/** Unique tags with their post counts, sorted by count (desc) then tag (asc). */
+export function getUniqueTagsWithCount(posts: CollectionEntry<"post">[]): [string, number][] {
+	const counts = getAllTags(posts).reduce((map, tag) => {
+		map.set(tag, (map.get(tag) ?? 0) + 1);
+		return map;
+	}, new Map<string, number>());
+	return [...counts.entries()].sort(([aTag, aCount], [bTag, bCount]) =>
+		bCount === aCount ? aTag.localeCompare(bTag) : bCount - aCount,
+	);
+}
+
+/** Posts that carry the given tag (order preserved from the input). */
+export function getPostsByTag(
+	posts: CollectionEntry<"post">[],
+	tag: string,
+): CollectionEntry<"post">[] {
+	return posts.filter((post) => post.data.tags.includes(tag));
+}

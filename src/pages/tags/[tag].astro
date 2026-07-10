@@ -1,0 +1,86 @@
+---
+import type { CollectionEntry } from "astro:content";
+import PostList from "@/components/blog/PostList.astro";
+import { getAllPosts, getPostsByTag, getUniqueTags, sortMDByDate } from "@/data/post";
+import PageLayout from "@/layouts/Base.astro";
+import { withBase } from "@/utils/path";
+import type { GetStaticPaths } from "astro";
+
+export const getStaticPaths = (async () => {
+	const posts = sortMDByDate(await getAllPosts());
+	return getUniqueTags(posts).map((tag) => ({
+		params: { tag },
+		props: { posts: getPostsByTag(posts, tag), tag },
+	}));
+}) satisfies GetStaticPaths;
+
+interface Props {
+	tag: string;
+	posts: CollectionEntry<"post">[];
+}
+
+const { posts, tag } = Astro.props;
+const count = posts.length;
+
+const meta = {
+	description: `Every post tagged “${tag}”.`,
+	title: `Posts tagged #${tag}`,
+};
+---
+
+<PageLayout meta={meta}>
+	<section class="tag-archive" aria-labelledby="tag-label">
+		<nav class="crumbs" aria-label="Breadcrumb">
+			<a data-astro-prefetch href={withBase("/tags/")}>Tags</a>
+			<span class="sep" aria-hidden="true">/</span>
+			<span class="current" aria-current="page">#{tag}</span>
+		</nav>
+		<div class="section-label" id="tag-label">
+			#{tag} · {count} {count === 1 ? "post" : "posts"}
+		</div>
+		<div class="timeline">
+			<PostList posts={posts} />
+		</div>
+	</section>
+</PageLayout>
+
+<style>
+	.tag-archive {
+		margin-bottom: 96px;
+	}
+
+	.crumbs {
+		font-family: var(--font-mono);
+		font-size: 11.5px;
+		letter-spacing: 0.04em;
+		color: hsl(var(--theme-text) / 0.55);
+		margin-bottom: 18px;
+	}
+	.crumbs a {
+		color: hsl(var(--theme-text-muted));
+		text-decoration: underline;
+		text-decoration-color: hsl(var(--theme-text) / 0.35);
+		text-decoration-thickness: 1px;
+		text-underline-offset: 3px;
+		transition: color 0.2s ease, text-decoration-color 0.2s ease;
+	}
+	.crumbs a:hover {
+		color: hsl(var(--theme-accent));
+		text-decoration-color: hsl(var(--theme-accent));
+	}
+	.crumbs a:focus-visible {
+		outline: 2px solid hsl(var(--theme-accent));
+		outline-offset: 3px;
+		border-radius: 3px;
+	}
+	.crumbs .sep {
+		color: var(--faint);
+		margin: 0 8px;
+	}
+
+	@media (max-width: 420px) {
+		.tag-archive {
+			margin-bottom: 64px;
+		}
+	}
+</style>

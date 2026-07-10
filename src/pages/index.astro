@@ -215,9 +215,17 @@ const siteUrl = (path: string) => absoluteUrl(path, Astro.site);
 		font-variant-numeric: tabular-nums;
 		font-feature-settings: "tnum";
 	}
+	.post.featured .post-meta .tag {
+		transition: color 0.2s ease;
+	}
 	.post.featured .post-meta .tag::before {
 		content: "#";
 		color: var(--faint);
+		transition: color 0.2s ease;
+	}
+	.post.featured .post-meta .tag:hover,
+	.post.featured .post-meta .tag:hover::before {
+		color: hsl(var(--theme-accent));
 	}
 	.post.featured .post-meta .dot {
 		color: var(--faint);

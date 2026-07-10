@@ -78,12 +78,7 @@ const siteUrl = (path: string) => absoluteUrl(path, Astro.site);
 		<div class="timeline">
 			{
 				featured && (
-					<a
-						class="post featured"
-						data-astro-prefetch
-						href={withBase(`/posts/${featured.id}/`)}
-						style="--i: 0"
-					>
+					<div class="post featured" style="--i: 0">
 						<div class="post-rail">
 							<time class="post-date" datetime={getPostSortDate(featured).toISOString()}>
 								{formatRailDate(getPostSortDate(featured))}
@@ -92,20 +87,24 @@ const siteUrl = (path: string) => absoluteUrl(path, Astro.site);
 						</div>
 						<div class="post-body">
 							<div class="post-stamp">Latest · {formatStampDate(getPostSortDate(featured))}</div>
-							<h2 class="post-title">{featured.data.title}</h2>
+							<h2 class="post-title">
+								<a class="post-cardlink" data-astro-prefetch href={withBase(`/posts/${featured.id}/`)}>
+									{featured.data.title}
+								</a>
+							</h2>
 							<p class="post-excerpt">{featured.data.description}</p>
 							{!!featured.data.tags?.length && (
 								<div class="post-meta">
 									{featured.data.tags.map((t, i) => (
 										<Fragment>
 											{i > 0 && <span class="dot">·</span>}
-											<span class="tag">{t}</span>
+											<a class="tag" href={withBase(`/tags/${encodeURIComponent(t)}/`)}>{t}</a>
 										</Fragment>
 									))}
 								</div>
 							)}
 						</div>
-					</a>
+					</div>
 				)
 			}
 
@@ -183,7 +182,25 @@ const siteUrl = (path: string) => absoluteUrl(path, Astro.site);
 	}
 	/* ---------- Featured post ---------- */
 	.post.featured .post-body {
+		position: relative;
 		padding-bottom: 56px;
+	}
+	/* Title is the post link; its ::after stretches over the whole card body so
+	   clicking anywhere opens the post, while the tag links sit above it. */
+	.post.featured .post-cardlink {
+		color: inherit;
+		text-decoration: none;
+	}
+	.post.featured .post-cardlink::after {
+		content: "";
+		position: absolute;
+		inset: 0;
+		z-index: 1;
+	}
+	.post.featured .post-cardlink:focus-visible {
+		outline: 2px solid hsl(var(--theme-accent));
+		outline-offset: 3px;
+		border-radius: 3px;
 	}
 	.post.featured .post-stamp {
 		font-family: var(--font-mono);
@@ -209,6 +226,8 @@ const siteUrl = (path: string) => absoluteUrl(path, Astro.site);
 		overflow-wrap: anywhere;
 	}
 	.post.featured .post-meta {
+		position: relative;
+		z-index: 2;
 		font-family: var(--font-mono);
 		font-size: 11.5px;
 		color: hsl(var(--theme-text) / 0.55);
@@ -216,6 +235,8 @@ const siteUrl = (path: string) => absoluteUrl(path, Astro.site);
 		font-feature-settings: "tnum";
 	}
 	.post.featured .post-meta .tag {
+		color: inherit;
+		text-decoration: none;
 		transition: color 0.2s ease;
 	}
 	.post.featured .post-meta .tag::before {
@@ -226,6 +247,11 @@ const siteUrl = (path: string) => absoluteUrl(path, Astro.site);
 	.post.featured .post-meta .tag:hover,
 	.post.featured .post-meta .tag:hover::before {
 		color: hsl(var(--theme-accent));
+	}
+	.post.featured .post-meta .tag:focus-visible {
+		outline: 2px solid hsl(var(--theme-accent));
+		outline-offset: 2px;
+		border-radius: 3px;
 	}
 	.post.featured .post-meta .dot {
 		color: var(--faint);
